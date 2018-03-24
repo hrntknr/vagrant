@@ -12,4 +12,8 @@ Vagrant.configure("2") do |config|
     vb.cpus = 2
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    curl -fsS https://raw.githubusercontent.com/hrntknr/dotfiles/master/install | sudo bash
+    sudo chsh -s $(which zsh) vagrant
+  SHELL
 end
